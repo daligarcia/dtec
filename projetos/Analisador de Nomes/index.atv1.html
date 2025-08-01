@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Analisador de Nomes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 7px rgb(182, 182, 182);
+    max-width: 400px;
+    width: 100%;
+    line-height: 30px;
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 16px;
+    
+}
+button:hover{
+    transition: 0.3s;
+    background-color: blue;
+}
+
+.resultado p {
+    margin: 6px 0;
+}
+
+.resultado strong {
+    font-weight: bold;
+}
+</style>
+<body>
+
+  <div class="card">
+    <h1>Analisador de Nomes</h1>
+    <div id="resultado" class="resultado"></div>
+    <button onclick="location.reload()">Reiniciar</button>
+  </div>
+
+<script>
+
+    const nome = prompt("DIGITE SEU NOME COMPLETO:");
+
+resultado.innerHTML += `<strong>O nome completo: </strong> ${nome}<br>`
+resultado.innerHTML += `<strong>O número total de letras (sem contar os espaços): ${nome.split('').filter(c => c !== ' ').length}</strong><br>`
+resultado.innerHTML += `<strong>A primeira letra nome: ${nome[0]} </strong><br>`
+resultado.innerHTML += `<strong>A última letra do nome: ${nome.slice(-1)} </strong><br>`
+resultado.innerHTML += `<strong>o indice do primeiro A é: ${nome.indexOf("a")} </strong><br>`
+resultado.innerHTML += `<strong>o indice do primeiro A é: ${nome.lastIndexOf("a")} </strong><br>`
+resultado.innerHTML += `<strong>As últimas 3 letras do seu nome são:</strong> ${nome.slice(-3)}<br>`
+resultado.innerHTML += `<strong>Seu nome com letras maiúsculas:</strong> ${nome.toUpperCase()}<br>`
+resultado.innerHTML += `<strong>Seu nome com letras minúsculas:</strong> ${nome.toLowerCase()}<br>`
+resultado.innerHTML += `<strong>As palavras do nome separadas por vírgulas:</strong> ${nome.split(' ')}<br>`
+
+</script>
+
+
+</body>
+</html>
