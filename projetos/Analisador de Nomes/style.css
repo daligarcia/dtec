@@ -1,0 +1,47 @@
+body {
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 7px rgb(182, 182, 182);
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.resultado p {
+    margin: 6px 0;
+}
+
+.resultado strong {
+    font-weight: bold;
+}

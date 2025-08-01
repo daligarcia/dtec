@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Analisador de Nomes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="card">
+    <h1>Analisador de Nomes</h1>
+    <div id="resultado"></div>
+    <button onclick="location.reload()">Reiniciar</button>
+
+<script>
+    const nome = prompt(`DIGITE SEU NOME COMPLETO `);
+    const resultado = document.getElementById(`resultado`);
+
+    resultado.innerHTML += `<p class="resultado"><strong>Seu nome é:</strong> ${nome}</p>`;
+
+    resultado.innerHTML += `<p><strong>O número total de letras (sem contar os espaços):</strong> ${nome.split('').filter(c => c !== ' ').length}</p>`;
+    resultado.innerHTML += `<p><strong>A primeira letra do nome:</strong> ${nome[0]}</p>`;
+    resultado.innerHTML += `<p><strong>A última letra do nome:</strong> ${nome.slice(-1)}</p>`;
+    resultado.innerHTML += `<p><strong>O índice do primeiro "a":</strong> ${nome.indexOf("a")}</p>`;
+    resultado.innerHTML += `<p><strong>O índice do último "a":</strong> ${nome.lastIndexOf("a")}</p>`;
+    resultado.innerHTML += `<p><strong>As últimas 3 letras do seu nome são:</strong> ${nome.slice(-3)}</p>`;
+    resultado.innerHTML += `<p><strong>Seu nome com letras maiúsculas:</strong> ${nome.toUpperCase()}</p>`;
+    resultado.innerHTML += `<p><strong>Seu nome com letras minúsculas:</strong> ${nome.toLowerCase()}</p>`;
+    resultado.innerHTML += `<p><strong>As palavras do nome separadas por vírgulas:</strong> ${nome.split(' ').join(', ')}</p>`;
+</script>
+
+</body>
+</html>
