@@ -1,0 +1,174 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.hero-image img{
+    max-width: 500px;/* Largura máxima */
+    width: 100px;
+    border-radius: 10px;/* Arredondamento da borda */
+    margin-top: 2rem;
+}
+.card{
+    background: #111;
+    padding: 2rem;
+    border-radius: 1rem;
+    transition: 0.3s ease;
+    border: 1px solid #1f1f1f;
+    box-shadow: 0 0 0  transparent;
+}
+.card:hover{
+    background: #1a1a1a;
+    transform: translate(-5px);
+    box-shadow: 0 4px 15px rgba(255, 225, 225, 0.05);/* Red, blue, green e capacidade */
+}
+.card, img{
+    width: 100px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+.card, h3{
+    font-size: 1.1rem;
+    color: #eee;
+    font-weight: 500;
+}
+.clients{
+    max-width: 1000px;
+    margin: 5rem auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+.clients-text h4{
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+.clients-text p{
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 2rem;
+}
+.clients-logos{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    align-items: center;
+}
+.clients-logos img{
+    height: 32px;
+    opacity: 0.8;
+    transition: opacity 0.3 ease;
+    filter: grayscale();
+}
+
+
+
+
+
+
