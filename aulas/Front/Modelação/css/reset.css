@@ -1,0 +1,40 @@
+/* =========================================================
+   RESET BÁSICO (SIMPLIFICADO) + BASE GLOBAL
+   (Mantém intencionalmente algumas escolhas ruins de UX)
+   ========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* inclui padding e border no cálculo do box */
+}
+
+body {
+    font-family: Arial;
+    margin: 0px;
+    padding: 0px;
+    background: white;
+    /* fundo esverdeado (pouco usual) */
+    color: #999;
+    /* contraste ruim proposital */
+}
+
+/* Links com estilo "simples" para evidenciar UX ruim */
+a {
+    color: inherit;
+    text-decoration:dotted;
+}
+
+/* Listas “zeradas” */
+ul,
+ol {
+    list-style: none;
+    padding-left: 0;
+}
+
+/* Imagens responsivas */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}

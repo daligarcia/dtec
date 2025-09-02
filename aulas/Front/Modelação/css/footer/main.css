@@ -1,0 +1,26 @@
+/* =========================================================
+   HERO (texto pequeno, botão pequeno, contraste fraco)
+   ========================================================= */
+.hero {
+    background: #eee;
+    padding: 12px;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 16px;
+    /* pequeno para um título */
+    color: black;
+    /* cinza médio = contraste fraco */
+}
+
+.search-btn {
+    background: #ff386c;
+    /* cor vibrante sem paleta consistente */
+    color: rgb(241, 203, 203);
+    /* contraste ruim */
+    padding: 6px 12px;
+    /* botão minúsculo (tocar no mobile é difícil) */
+    border: none;
+    border-radius: 10px;
+}

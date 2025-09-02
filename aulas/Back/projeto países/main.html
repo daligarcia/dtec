@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 60%;
+        }
+
+        button {
+            padding: 8px 15px;
+        }
+
+        #container{
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #807f7f;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Informações de Países</h1>
+    <p>Digite o nome de  um país em inglês para busca.</p>
+
+    <input type="text" id="paísInput" placeholder="Ex: Brazil, Japan">
+    <button id="buscarBtn">Buscar</button>
+
+    <div id="container"></div>
+    <script src="script.js"></script>
+</body>
+</html>

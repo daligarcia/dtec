@@ -1,0 +1,11 @@
+/* =========================================================
+   BOTÃO DE RESERVA (área de toque pequena, sem feedback)
+   ========================================================= */
+.reserve {
+    background-color: #ddd;
+    /* botão sem contraste */
+    border: 1px solid #ccc;
+    padding: 3px 6px;
+    /* área de toque minúscula */
+    margin-top: 2px;
+}

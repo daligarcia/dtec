@@ -1,0 +1,12 @@
+/* =========================================================
+   FOOTER (contraste ruim, tipografia pequena)
+   ========================================================= */
+footer {
+    background: white;
+    text-align: center;
+    font-size: 10px;
+    /* pequeno */
+    color: black;
+    /* contraste baixo */
+    padding: 5px;
+}

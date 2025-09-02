@@ -1,0 +1,28 @@
+/* =========================================================
+   HEADER / NAV (Problemas propositais: fontes pequenas, contraste)
+   ========================================================= */
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    /* pouco espaçamento */
+    background: white;
+    /* fundo escuro acinzentado */
+    border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+    font-size: 21px;
+    /* MUITO pequeno */
+    color: #ff385c;
+    /* cor ok */
+}
+
+header nav a {
+    margin: 18px;
+    font-size: 11px;
+    /* MUITO pequeno */
+    text-decoration: none;
+    color: black;
+    /* cor sem contraste adequado */
+}

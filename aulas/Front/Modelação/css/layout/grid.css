@@ -1,0 +1,13 @@
+/* =========================================================
+   LISTA / GRID (grade fixa e desbalanceada)
+   - Grid fixo com 5 colunas SEM responsividade
+   - Gaps e margens inconsistentes
+   ========================================================= */
+.lista {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    /* 5 colunas fixas: ruim em telas pequenas */
+    margin: 10px;
+    gap: 7px;
+    /* espaçamento “mágico” inconsistente */
+}
