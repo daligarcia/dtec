@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cors())
 
 // Define a porta em que o servidor vai escutar as requisições.
-const PORT = 3001;
+const PORT = 3002;
 
 // --- Banco de Dados em Memória ---
 let usuarios = [
@@ -60,8 +60,11 @@ app.delete('/usuarios/:id', (require, response) =>{
 })
 
 app.post('/usuarios', (require, response) => {
+    const ultimoId = usuarios.reduce((max, usuario) => Math.max(max, usuario.id), 0)
+   
+   
     const novoUsuario = {
-        id: usuarios.length + 1,
+        id: ultimoId + 1,
         nome: require.body.nome,
         idade: require.body.idade
     };
