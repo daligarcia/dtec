@@ -1,120 +1,110 @@
-// Importa o módulo 'express' para criar e gerenciar a aplicação web.
-const express = require('express');
+//Importa o dotenv no início para carregar variáveis
+require('dotenv').config()
 
-// Importa o módulo 'cors' para permitir requisições de outras origens.
-const cors = require('cors');
+//Importando o express
+const express = require('express')
+//Importação cors
+const cors = require('cors')
+//Iniciar o Mongoose pacote MONGDB
+const mongoose= require('mongoose');
 
-// Cria uma instância da aplicação Express.
-const app = express();
+const mongoURI = process.env.MONGO_URI
 
-// Middleware: 'app.use()' é usado para adicionar funcionalidades à aplicação.
-app.use(express.json());
+mongoose.connect(mongoURI)
+    .then(() => console.log("Conectado ao Mongodb"))
+    .catch(err => console.error("Erro de conexão", err));
 
-// Middleware: app.use(cors()) habilita o CORS para todas as rotas da API.
-// Sem ele, o navegador bloquearia requisições de domínios diferentes.
+//Criando minha aplicação
+const app = express()
+
+//Permitir trabalhar com json
+app.use(express.json())
+//permitir trabalhar com cors
 app.use(cors())
 
-// Define a porta em que o servidor vai escutar as requisições.
-const PORT = 3002;
+//Porta onde a API vai rodar
+const PORT = 3000;
 
-// --- Banco de Dados em Memória ---
 let usuarios = [
-    {id: 1, nome: "Ana", idade: 25},
-    {id: 2, nome: "Carlos", idade: 30},
-    {id: 3, nome: "Maria", idade: 22},
-    {id: 4, nome: "Marcos", idade: 18},
-    {id: 5, nome: "Maria Clara", idade: 24}
+  { id: 1, nome: "Ana", idade: 25 },
+  { id: 2, nome: "Carlos", idade: 30 },
+  { id: 3, nome: "Maria", idade: 22 },
+  { id: 4, nome: "José Carlos", idade: 35},
+  { id: 5, nome: "Josefa", idade: 25}
 ]
 
-// Rota inicial ou "raiz" (/).
-app.get('/', (request, response) => {
-    response.send("TESTE");
-})
-
-// Rota para listar todos os usuários
-app.get('/usuarios', (request, response) => {
-    response.json(usuarios);
-})
-
-// Rota para buscar um único usuário por ID.
-// O ':id' é um parâmetro de URL que captura o valor passado na rota.
-app.get('/usuarios/:id', (request, response) => {
-    // Acessa o valor do parâmetro 'id' da requisição.
-    const id = request.params.id;
-
-    // Procura no array 'usuarios' o objeto cujo 'id' corresponde ao 'id' da requisição.
-    // O método find() retorna o primeiro elemento que satisfaz a condição.
-    const usuario = usuarios.find(u => u.id == id);
-
-    if (usuario) {
-        response.json(usuario)
-    } else{
-        response.status(404).json({mensagem: "Usuario não encontrado"})
-    }
-
-})
-app.delete('/usuarios/:id', (require, response) =>{
-    const id = require.params.id
-    usuarios = usuarios.filter(u => u.id != id);
-    response.json({mensagem: "Usuario removido com sucesso"})
-})
-
-app.post('/usuarios', (require, response) => {
-    const ultimoId = usuarios.reduce((max, usuario) => Math.max(max, usuario.id), 0)
-   
-   
-    const novoUsuario = {
-        id: ultimoId + 1,
-        nome: require.body.nome,
-        idade: require.body.idade
-    };
-
-    usuarios.push(novoUsuario)
-    response.status(201).json(novoUsuario);
-})
-
-app.put('/usuarios/:id', (require, response) => {
-    const id= require.params.id
-    const nome = require.body.nome
-    const idade = require.body.idade
-
-    const usuario = usuarios.find(u => u.id == id)
-
-    if (!usuario) {
-        return response.status(404).json({mensagem: "Usuário Não Encontrado"})
-    }
-    usuario.nome = nome || usuario.nome
-    usuario.idade = idade || usuario.idade
-    response.json(usuario)
+app.get('/',(req,res) => {
+  res.send("PÁGINA INICIAL")
 })
 
 
-app.get('/usuarios/:nome', (req, response) =>{
-    const buscaNome = request.params.nome.toLowerCase()
-    const resultados = usuarios.filter( u => u.nome.toLocaleLowerCase().includes(buscaNome))
-    if(resultados.length > 0) {
-        response.json(resultados)
-    }else{
-        response.status(404).json({mensagem: "Usuario não encontrado"})
+app.get('/usuarios',(req,res) => {
+    res.json(usuarios);
+})
+
+app.get('/usuarios/:id', (req, res) => {
+  const id = req.params.id
+  const usuario = usuarios.find(u => u.id == id)
+
+  if(usuario){
+    res.json(usuario)
+  }else {
+    res.status(404).json({mensagem: "Usuário Não Encontrado"})
+  }
+})
+
+app.get('/usuarios/nome/:nome', (req,res) => {
+    const buscaNome = req.params.nome.toLowerCase()
+    const resultados = usuarios.filter(u => u.nome.toLowerCase().includes(buscaNome))
+    if(resultados.length > 0){
+      res.json(resultados)
+    }else {
+      res.status(404).json({mensagem: "Usuário Não Encontrado"})
     }
 })
 
-//Buscar usuário pela idade
-app.get('/usuarios/idade/:idade', (require, response) => {
-    
-    const idade = require.params.idade
-    resultado = usuarios.filter(u => u.idade == idade);
-    
-    if (resultado.length > 0){
-        response.json(resultado)
-    }else{
-        response.status(404).json({mensagem: "Usuario Não Encontrado"})
-    }
-
+app.get('/usuarios/idade/:idade', (req,res) => {
+  const buscaIdade = req.params.idade
+  const usuario = usuarios.filter(u => u.idade == buscaIdade)
+  if(usuario.length > 0){
+    res.json(usuario)
+  }else{
+    res.status(404).json({mensagem: "Usuário não encontrado"})
+  }
 })
 
+app.delete('/usuarios/:id', (req, res) => {
+    const id = req.params.id
+    usuarios = usuarios.filter(u => u.id != id)
+    res.json({mensagem: "Usuário Removido com sucesso"})
+})
 
-// --- Início do Servidor --
+app.post('/usuarios', (req, res) => {
+  const novoUsuario = {
+    id: usuarios.length + 1,
+    nome: req.body.nome,
+    idade: req.body.idade
+  };
+  usuarios.push(novoUsuario)
+  res.status(201).json(novoUsuario)
+})
+
+app.put('/usuarios/:id', (req,res) => {
+  const id = req.params.id;
+  const nome = req.body.nome
+  const idade = req.body.idade
+
+  const usuario = usuarios.find(u => u.id == id)
+
+  if (!usuario){
+    return res.status(404).json({mensagem: "Usuário Não encontrado"})
+  }
+  usuario.nome = nome || usuario.nome
+  usuario.idade = idade || usuario.idade
+  res.json(usuario)
+})
+
+//Inicia o servidor
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`)
+    console.log(`Servidor na porta ${PORT}`)
 })

@@ -1,7 +1,7 @@
 const { application } = require("express");
 
 //Criando uma constante com o endereço da API
-const API_URL = "http://localhost:3002/usuarios";
+const API_URL = "http://localhost:3000/usuarios";
 
 //Seleção de Elementos do HTML inicial
 const userCardsContainer = document.getElementById('user-cards-container');
@@ -65,7 +65,7 @@ function editUser(userId, userData){
 }
 
 function deleteUser(userId) {
-    fetch(`${API_URL}/${userId}` {
+    fetch(`${API_URL}/${userId}`{
         method: 'Delete'
     })
     .then(response => response.json())
