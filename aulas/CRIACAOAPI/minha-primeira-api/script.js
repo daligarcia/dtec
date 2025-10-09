@@ -65,7 +65,7 @@ function editUser(userId, userData){
 }
 
 function deleteUser(userId) {
-    fetch(`${API_URL}/${userId}`{
+    fetch(`${API_URL}/${userId}`, {
         method: 'Delete'
     })
     .then(response => response.json())
