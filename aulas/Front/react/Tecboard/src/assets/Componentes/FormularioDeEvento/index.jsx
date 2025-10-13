@@ -29,6 +29,13 @@ export function FormularioDeEvento() {
         
         <VemLista/> {/*Lista Suspensa*/}
       </CampoDeFormulario>
+
+      </div>
+
+      <div className='acoes'>
+        <Botao>
+          Criar Evento
+        </Botao>
       </div>
     </form>
   )
