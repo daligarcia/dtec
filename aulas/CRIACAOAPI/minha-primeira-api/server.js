@@ -112,29 +112,35 @@ app.delete('/usuarios/:id', async (req, res) => {
    
 })
 
-app.post('/usuarios', (req, res) => {
-  const novoUsuario = {
-    id: usuarios.length + 1,
-    nome: req.body.nome,
-    idade: req.body.idade
-  };
-  usuarios.push(novoUsuario)
-  res.status(201).json(novoUsuario)
+app.post('/usuarios', async(req, res) => {
+  try {
+    const novoUsuario = await Usuario.create({
+      nome: req.body.nome,
+      idade: req.body.idade
+    });
+    res.status(201).json(novoUsuario);
+   }catch (error) {
+    res.status(400).json({mensagem: "Erro ao Salvar", erro: error.message})
+   }
 })
 
-app.put('/usuarios/:id', (req,res) => {
-  const id = req.params.id;
-  const nome = req.body.nome
-  const idade = req.body.idade
-
-  const usuario = usuarios.find(u => u.id == id)
-
-  if (!usuario){
-    return res.status(404).json({mensagem: "Usuário Não encontrado"})
+app.put('/usuarios/:id', async(req,res) => {
+  try {
+    const id = req.params.id
+    const nome = req.body.nome
+    const idade = req.body.idade
+    const usuarioAtualizado = await Usuario.findByIdAndUpdate(
+      id,
+      {nome, idade},
+      {new: true, runValidators: true}
+    )
+    if (!usuarioAtualizado){
+      return res.status(404).json({mensagem: "Usuário Não Encontrado"})
+    }
+    res.json(usuarioAtualizado)
+  }catch(error) {
+    res.status(400).json({mensagem: "Erro ao atualizar", erro: error.message})
   }
-  usuario.nome = nome || usuario.nome
-  usuario.idade = idade || usuario.idade
-  res.json(usuario)
 })
 
 //Inicia o servidor
