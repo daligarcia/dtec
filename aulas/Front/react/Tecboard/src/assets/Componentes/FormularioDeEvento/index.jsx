@@ -8,10 +8,10 @@ import { Botao } from "../Botão";
 
 export function FormularioDeEvento({ temas, aoSubmeter }) {
 
-  function aoFormSubmetido( FormData ) {
+  function aoFormSubmetido(FormData) {
     console.log('Vamos adicionar um novo evento', FormData)
 
-    const evento={
+    const evento = {
       capa: FormData.get('capa'),
       tema: temas.find(function (item) {
         return item.id == FormData.get('tema')
@@ -30,11 +30,17 @@ export function FormularioDeEvento({ temas, aoSubmeter }) {
       <div className='campos'>
 
         <CampoDeFormulario>
-          <Label htmlFor="">Qual é o nome do evento?</Label>
+          <Label htmlFor="nomeEvento">Qual é o nome do evento?</Label>
+          <CampoDeEntrada type="text" id='nomeEvento'
+            name='nomeEvento' placeholder='Sumer dev hits' />
+        </CampoDeFormulario>
+
+        <CampoDeFormulario>
+          <Label htmlFor="capa">Qual é o endereço da imagem de
+            capa</Label>
           <CampoDeEntrada type="text" id='capa'
             name='capa' placeholder='Sumer dev hits' />
         </CampoDeFormulario>
-
 
 
         <CampoDeFormulario>
@@ -42,12 +48,6 @@ export function FormularioDeEvento({ temas, aoSubmeter }) {
           <CampoDeEntrada type="date" id='dataEvento' placeholder='data de evento' />
         </CampoDeFormulario>
 
-        <CampoDeFormulario>
-          <Label htmlFor="">Qual é o endereço da imagem de
-            capa</Label>
-          <CampoDeEntrada type="text" id='capa'
-            name='capa' placeholder='Sumer dev hits' />
-        </CampoDeFormulario>
 
 
         <CampoDeFormulario>

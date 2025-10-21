@@ -1,6 +1,4 @@
 
-
-
 const API_URL = `http://localhost:3007/usuarios`;
 
 //Seleção de Elementos do HTML INICIAL

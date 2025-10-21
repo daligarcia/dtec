@@ -31,9 +31,6 @@ app.use(express.json());
 //permitir trabalhar com cors
 app.use(cors())
 
-
-
-
 app.get('/',(req,res) => {
   res.send("PÁGINA INICIAL")
 })
