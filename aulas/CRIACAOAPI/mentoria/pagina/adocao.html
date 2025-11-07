@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PetWorld — Adoção</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --blue-1: #7ec8e3;
+            --blue-2: #a8e0ff;
+            --bg: #f0faff;
+            --card: #ffffff;
+            --muted: #66757f;
+            --radius: 14px;
+            --shadow: 0 8px 24px rgba(126, 200, 227, 0.15);
+            font-family: 'Poppins', system-ui, sans-serif;
+        }
+
+        html,body {
+            background: linear-gradient(180deg, var(--bg), #e3f7ff);
+            color: #0f172a;
+            min-height: 100vh;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        #content { transition: filter 0.3s ease; }
+        #content.blurred { filter: blur(6px); }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 28px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid rgba(126, 200, 227, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand img { width: 48px; height: 48px; border-radius: 10px; }
+
+        nav { display: flex; gap: 14px; }
+
+        nav a {
+            color: #3a6e8f;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover { background: rgba(168, 224, 255, 0.4); }
+
+        nav a.cta {
+            background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 36px 0 20px;
+            color: #3a6e8f;
+            font-size: 28px;
+        }
+
+        .pets {
+            padding: 0 28px 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .pet {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: box-shadow 0.3s;
+        }
+
+        .pet:hover {
+            box-shadow: 0 8px 28px rgba(126, 200, 227, 0.25);
+        }
+
+        .pet img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .pet h3 {
+            color: #3a6e8f;
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .pet p {
+            color: var(--muted);
+            font-size: 14px;
+            flex-grow: 1;
+            margin-bottom: 12px;
+        }
+
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .btn {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 0;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn.primary {
+            background: var(--blue-1);
+            color: white;
+        }
+
+        .btn.primary:hover {
+            background: var(--blue-2);
+            color: #3a6e8f;
+        }
+
+        footer {
+            padding: 20px 28px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            background: rgba(168, 224, 255, 0.2);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            backdrop-filter: blur(6px);
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 24px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-content h3 { color: #3a6e8f; margin-bottom: 8px; }
+        .modal-content p { color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
+
+        .modal-content button {
+            background: var(--blue-1);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .modal-content button:hover {
+            background: var(--blue-2);
+            color: #3a6e8f;
+        }
+
+        @media(max-width:900px) {
+            nav { display: none; }
+            header { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <header>
+            <div class="brand">
+                <a href="index.html"><img src="../fotos/logo.png" alt="Logo PetWorld"></a>
+            </div>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="shop.html">Petshop</a>
+                <a href="vacina.html">Vacinas</a>
+                <a class="cta" href="ia.html">IA</a>
+            </nav>
+        </header>
+
+        <main>
+            <h1>Pets disponíveis para adoção 🐶🐱</h1>
+
+            <section class="pets">
+                <article class="pet">
+                    <img src="https://caesegatos.com.br/wp-content/uploads/2373-1024x683.jpg" alt="Spark">
+                    <h3>Spark - Bulldog Francês, 3 anos</h3>
+                    <p>Macho calmo e carinhoso, ideal para companhia em casa ou apartamento.</p>
+                    <div class="meta">
+                        <span style="color:var(--muted)">Curitiba - PR</span>
+                        <button class="btn primary" onclick="openModal('Spark', '3 anos', 'Bulldog Francês', 'Spark foi resgatado ainda filhote, após ser abandonado em um parque durante o inverno. Desde então, ele conquistou todos com seu olhar doce e seu jeitinho tranquilo. Ama deitar no sol e acompanhar o dono por onde ele vai. Está pronto para levar muito amor para sua nova família!')">Saiba mais</button>
+                    </div>
+                </article>
+
+                <article class="pet">
+                    <img src="https://img.travesiasdigital.com/2018/04/capuchino.jpg" alt="Thor">
+                    <h3>Zara - Macaco-Prego, 2 anos</h3>
+                    <p>Fêmea dócil e dorminhoca. Ama colo e atenção.</p>
+                    <div class="meta">
+                        <span style="color:var(--muted)">São Paulo - SP</span>
+                        <button class="btn primary" onclick="openModal('Zara', '2 anos', 'Macaco-Prego', 'Zara foi resgatada perto de uma padaria, tentando se abrigar da chuva. Hoje é uma macaca tranquila, adora dormir em almofadas macias e ronrona só de ganhar carinho. Ela sonha em encontrar uma casa calma onde possa ser a rainha do sofá.')">Saiba mais</button>
+                    </div>
+                </article>
+
+                <article class="pet">
+                    <img src="https://livestockconservancy.org/wp-content/uploads/2022/08/Giant-Chinchilla-Buck-1200x960.jpg" alt="Luna">
+                    <h3>Luna - American Chinchilla, 1 ano</h3>
+                    <p>Cheia de energia, ótima para famílias ativas.</p>
+                    <div class="meta">
+                        <span style="color:var(--muted)">Belo Horizonte - MG</span>
+                        <button class="btn primary" onclick="openModal('Luna', '1 ano', 'American Chinchilla', 'Luna nasceu em uma chácara e foi a mais brincalhona da ninhada! Ela adora correr, comer e brincar de buscar bolinhas. Mesmo jovem, já demonstra ser muito amorosa e protetora. Seu maior sonho é ter uma família que goste de aventuras tanto quanto ela.')">Saiba mais</button>
+                    </div>
+                </article>
+
+                <article class="pet">
+                    <img src="https://mainecoon.org/wp-content/uploads/2022/10/big-maine-coon-1.jpg" alt="Max">
+                    <h3>Max - Maine Coon, 4 anos</h3>
+                    <p>Companheiro fiel e brincalhão, ótimo com crianças.</p>
+                    <div class="meta">
+                        <span style="color:var(--muted)">Florianópolis - SC</span>
+                        <button class="btn primary" onclick="openModal('Max', '4 anos', 'Maine Coon', 'Max viveu com uma família que precisou se mudar e infelizmente não pôde levá-lo. Apesar disso, continua sorridente e cheio de energia! Ama dormir, comer e aventuras. É o amigo perfeito para quem busca alegria e lealdade todos os dias.')">Saiba mais</button>
+                    </div>
+                </article>
+            </section>
+        </main>
+
+        <footer>
+            © <span id="year"></span> PetWorld — Todos os direitos reservados 💙
+        </footer>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h3 id="petName"></h3>
+            <p id="petInfo"></p>
+            <button onclick="closeModal()">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        function openModal(name, idade, raca, historia) {
+            document.getElementById('petName').textContent = `${name} — ${raca}, ${idade}`;
+            document.getElementById('petInfo').textContent = historia;
+            document.getElementById('modal').classList.add('active');
+            document.getElementById('content').classList.add('blurred');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            document.getElementById('content').classList.remove('blurred');
+        }
+    </script>
+</body>
+</html>

@@ -42,13 +42,10 @@ export function FormularioDeEvento({ temas, aoSubmeter }) {
             name='capa' placeholder='Sumer dev hits' />
         </CampoDeFormulario>
 
-
         <CampoDeFormulario>
           <Label htmlFor="dataEvento">Qual é a data do evento?</Label>
           <CampoDeEntrada type="date" id='dataEvento' placeholder='data de evento' />
         </CampoDeFormulario>
-
-
 
         <CampoDeFormulario>
           <Label htmlFor="tema">Qual é o tema do evento?</Label>

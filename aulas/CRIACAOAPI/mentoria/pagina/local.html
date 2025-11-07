@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lugares de Vacinação Pet — PetWorld</title>
+  <style>
+    /* Reset e variáveis */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue-1: #7ec8e3;
+      --blue-2: #a8e0ff;
+      --bg: #f0faff;
+      --card: #ffffff;
+      --muted: #66757f;
+      --radius: 14px;
+      --shadow: 0 8px 24px rgba(126, 200, 227, 0.15);
+      font-family: 'Poppins', system-ui, sans-serif;
+    }
+
+    html,body {
+      background: linear-gradient(180deg, var(--bg), #e3f7ff);
+      color: #0f172a;
+                  overflow-x: hidden;
+            box-sizing: border-box;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 28px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 1px 4px rgba(126, 200, 227, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+    }
+
+    nav a {
+      color: #3a6e8f;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(168, 224, 255, 0.4);
+    }
+
+    nav a.cta {
+      background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+      color: white;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 48px 28px;
+    }
+
+    .hero h2 {
+      font-size: 28px;
+      color: #3a6e8f;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Locais */
+    .locais {
+      padding: 32px 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .local {
+      background: var(--card);
+      padding: 18px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      transition: transform 0.2s;
+      gap: 8px;
+      height: 100%;
+    }
+
+    .local:hover {
+      transform: translateY(-6px);
+    }
+
+    .local img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+
+    .local h3 {
+      margin-bottom: 4px;
+      color: #3a6e8f;
+    }
+
+    .local p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .local-content {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .local .btn {
+      margin-top: auto;
+      align-self: center;
+    }
+
+    .btn {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 0;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn.primary {
+      background: var(--blue-1);
+      color: white;
+    }
+
+    .btn.primary:hover {
+      background: var(--blue-2);
+      color: #3a6e8f;
+    }
+
+    footer {
+      padding: 20px 28px;
+      text-align: center;
+      color: var(--muted);
+      background: rgba(168, 224, 255, 0.2);
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .modal-content {
+      background: var(--card);
+      padding: 28px;
+      border-radius: var(--radius);
+      max-width: 420px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content h3 {
+      color: #3a6e8f;
+      margin-bottom: 12px;
+    }
+
+    .modal-content p {
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">
+            <a href="index.html"><img src="../fotos/logo.png" alt="Logo PetWorld"></a>
+      <strong>PetWorld Locais</strong>
+    </div>
+    <nav>
+      <a href="index.html">Sobre</a>
+      <a class="cta" href="ia.html">IA</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Locais de Vacinação para Pets 🐾</h2>
+    <p>Confira os principais locais de vacinação em nossa cidade. Escolha a clínica mais próxima, veja os serviços oferecidos e agende a imunização do seu amigo com segurança e cuidado.</p>
+  </section>
+
+  <section id="locais" class="locais">
+    <article class="local">
+      <img src="https://www.denia.com/wp-content/uploads/2020/03/clinica-veterinaria-el-saladar-interior.jpg" alt="Clínica VetCare">
+      <div class="local-content">
+        <h3>Clínica VetCare</h3>
+        <p><strong>Endereço:</strong> Av. Brasil, 210 — Centro</p>
+        <p><strong>Horário:</strong> Seg a Sáb, 8h às 18h</p>
+        <button class="btn primary" onclick="abrirModal('vetcare')">Saiba Mais</button>
+      </div>
+    </article>
+
+    <article class="local">
+      <img src="https://estudioniddo.com/wp-content/uploads/2018/02/galeria_16.jpg" alt="Pet & Saúde">
+      <div class="local-content">
+        <h3>Pet & Saúde</h3>
+        <p><strong>Endereço:</strong> R. das Flores, 480 — Jardim Azul</p>
+        <p><strong>Horário:</strong> Todos os dias, 9h às 20h</p>
+        <button class="btn primary" onclick="abrirModal('petsaude')">Saiba Mais</button>
+      </div>
+    </article>
+
+    <article class="local">
+      <img src="https://i.pinimg.com/originals/4f/1e/03/4f1e037fc96107346c6ada68e422ef42.jpg" alt="Vida Animal Vet">
+      <div class="local-content">
+        <h3>Vida Animal Vet</h3>
+        <p><strong>Endereço:</strong> Rua Bela Vista, 125 — Vila Nova</p>
+        <p><strong>Horário:</strong> Seg a Sex, 7h às 17h</p>
+        <button class="btn primary" onclick="abrirModal('vidaanimal')">Saiba Mais</button>
+      </div>
+    </article>
+  </section>
+
+  <!-- MODAIS -->
+  <div id="modal-vetcare" class="modal">
+    <div class="modal-content">
+      <h3>Clínica VetCare</h3>
+      <p>Oferece vacinação completa (V8, V10, antirrábica e gripe canina), consultas e microchipagem. Equipe com veterinários especializados.</p>
+      <p><strong>Telefone:</strong> (11) 99999-1111</p>
+      <p><strong>Agendamento:</strong> presencial ou pelo site.</p>
+      <button class="btn primary" onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
+
+  <div id="modal-petsaude" class="modal">
+    <div class="modal-content">
+      <h3>Pet & Saúde</h3>
+      <p>Centro de vacinação pet com estrutura moderna. Trabalha com vacinas importadas, além de check-up gratuito antes da aplicação.</p>
+      <p><strong>Telefone:</strong> (11) 91234-5678</p>
+      <p><strong>Serviços extras:</strong> banho, tosa e pet shop.</p>
+      <button class="btn primary" onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
+
+  <div id="modal-vidaanimal" class="modal">
+    <div class="modal-content">
+      <h3>Vida Animal Vet</h3>
+      <p>Clínica referência em vacinação e atendimento emergencial. Faz acompanhamento pós-vacina e atendimento domiciliar sob agendamento.</p>
+      <p><strong>Telefone:</strong> (11) 97777-2233</p>
+      <p><strong>Serviços extras:</strong> exames e cirurgias simples.</p>
+      <button class="btn primary" onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> PetWorld — Locais de Vacinação 💙
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function abrirModal(tipo) {
+      fecharModal();
+      document.getElementById(`modal-${tipo}`).style.display = 'flex';
+    }
+
+    function fecharModal() {
+      document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+    }
+
+    document.querySelectorAll('.modal').forEach(m => {
+      m.addEventListener('click', e => {
+        if (e.target === m) fecharModal();
+      });
+    });
+
+    // Ajuste automático do tamanho da fonte do texto do card
+    document.querySelectorAll('.local p').forEach(p => {
+      const length = p.textContent.length;
+      if (length < 40) {
+        p.style.fontSize = '16px';
+      } else if (length < 80) {
+        p.style.fontSize = '14px';
+      } else {
+        p.style.fontSize = '12px';
+      }
+    });
+  </script>
+</body>
+
+</html>

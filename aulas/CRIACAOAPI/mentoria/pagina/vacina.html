@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vacinação Pet — Saúde e Proteção</title>
+    <style>
+        /* Reset e variáveis */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --blue-1: #7ec8e3;
+            --blue-2: #a8e0ff;
+            --bg: #f0faff;
+            --card: #ffffff;
+            --muted: #66757f;
+            --glass: rgba(255, 255, 255, 0.6);
+            --radius: 14px;
+            --shadow: 0 8px 24px rgba(126, 200, 227, 0.15);
+            font-family: 'Poppins', system-ui, sans-serif;
+        }
+
+        html,body {
+            background: linear-gradient(180deg, var(--bg), #e3f7ff);
+            color: #0f172a;
+                        overflow-x: hidden;
+            box-sizing: border-box;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 28px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 1px 4px rgba(126, 200, 227, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+        }
+
+        nav {
+            display: flex;
+            gap: 14px;
+        }
+
+        nav a {
+            color: #3a6e8f;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(168, 224, 255, 0.4);
+        }
+
+        nav a.cta {
+            background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+            color: white;
+        }
+
+        /* Hero */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 32px;
+            padding: 48px 28px;
+            align-items: center;
+        }
+
+        .hero-card {
+            background: var(--card);
+            padding: 28px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .badge {
+            position: relative;
+            top: -5px;
+            background: linear-gradient(90deg, var(--blue-2), var(--blue-1));
+            color: #3a6e8f;
+            padding: 6px 8px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .btn {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 0;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn.primary {
+            background: var(--blue-1);
+            color: white;
+        }
+
+        .btn.primary:hover {
+            background: var(--blue-2);
+            color: #3a6e8f;
+        }
+
+        .servicos {
+            padding: 32px 28px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .servico {
+            background: var(--card);
+            padding: 14px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .servico:hover {
+            transform: translateY(-6px);
+        }
+
+        .servico img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        footer {
+            padding: 20px 28px;
+            text-align: center;
+            color: var(--muted);
+            background: rgba(168, 224, 255, 0.2);
+        }
+
+        /* Cuidados */
+        .cuidados {
+            background: var(--card);
+            margin: 40px auto;
+            padding: 28px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 900px;
+        }
+
+        .cuidados h2 {
+            color: #3a6e8f;
+            margin-bottom: 10px;
+        }
+
+        .cuidados ul {
+            margin-top: 10px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background: var(--card);
+            padding: 28px;
+            border-radius: var(--radius);
+            max-width: 480px;
+            box-shadow: var(--shadow);
+            text-align: left;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content h3 {
+            color: #3a6e8f;
+            margin-bottom: 12px;
+        }
+
+        .modal-content p {
+            color: var(--muted);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .modal-content ul {
+            margin-left: 16px;
+            color: var(--muted);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="brand">
+            <a href="index.html"><img src="../fotos/logo.png" alt="Logo PetWorld"></a>
+            <strong>PetWorld Vacinas</strong>
+        </div>
+        <nav>
+            <a href="vacina.html">Vacinas</a>
+            <a href="adestramento.html">Cuidados</a>
+            <a class="cta" href="ia.html">IA</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-card">
+                <span class="badge">Proteção e Cuidado</span>
+                <h2>Vacinação Pet 💉</h2>
+                <p>Manter as vacinas do seu pet em dia é o maior ato de amor e responsabilidade. Oferecemos um serviço
+                    seguro, com profissionais qualificados e vacinas de alta qualidade.</p>
+                <div style="margin-top:18px;">
+                </div>
+            </div>
+            <img style="border-radius:14px; width:100%; box-shadow:var(--shadow);"
+                src="https://www.animalcareunlimited.com/blog/wp-content/uploads/2022/12/iStock-1346380406-1-2000x1065.jpg"
+                alt="Vacinação Pet">
+        </section>
+
+        <!-- Serviços -->
+        <section id="servicos" class="servicos">
+            <article class="servico">
+                <img src="https://tse4.mm.bing.net/th/id/OIP.jQ7nDv7EbzBGdPoXEBahcgHaEK?pid=Api&P=0&h=180"
+                    alt="Vacina Canina">
+                <h3>Vacinas para Cães</h3>
+                <p>Protege contra doenças graves como cinomose, parvovirose, leptospirose e raiva.</p>
+                <button class="btn primary" onclick="abrirModal('caes')">Saiba Mais</button>
+            </article>
+
+            <article class="servico">
+                <img src="https://cobasiblog.blob.core.windows.net/production-ofc/2021/04/AdobeStock_139614520-1-2048x1362.jpg"
+                    alt="Vacina Felina">
+                <h3>Vacinas para Gatos</h3>
+                <p>Previne doenças respiratórias e infecciosas felinas, além da leucemia e raiva.</p>
+                <button class="btn primary" onclick="abrirModal('gatos')">Saiba Mais</button>
+            </article>
+
+            <article class="servico">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_913848-MLB73943895365_012024-O-carteirinha-de-vacinaco-pet-personalizado-100-un.webp"
+                    alt="Check-up veterinário">
+                <h3>Check-up Pré-Vacina</h3>
+                <p>Exame completo para garantir que o pet está saudável antes da vacinação.</p>
+                <button class="btn primary" onclick="abrirModal('checkup')">Saiba Mais</button>
+            </article>
+        </section>
+
+        <!-- Cuidados -->
+        <section id="cuidados" class="cuidados">
+            <h2>Cuidados Pós-Vacina 🐾</h2>
+            <p>Após a aplicação da vacina, é importante observar o pet e seguir algumas orientações para evitar
+                desconfortos.</p>
+            <ul>
+                <li>Evite banhos e passeios por até 48 horas após a vacinação.</li>
+                <li>Observe se há inchaço, dor leve ou sonolência — são reações normais.</li>
+                <li>Procure o veterinário em caso de febre, vômito ou apatia prolongada.</li>
+                <li>Mantenha o cartão de vacinas sempre atualizado.</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Modais -->
+    <div id="modal-caes" class="modal">
+        <div class="modal-content">
+            <h3>Vacinas para Cães</h3>
+            <p><strong>Principais vacinas:</strong> V8, V10 e antirrábica.</p>
+            <ul>
+                <li><b>V8 e V10:</b> Protegem contra cinomose, parvovirose, hepatite, leptospirose e parainfluenza.</li>
+                <li><b>Antirrábica:</b> Obrigatória por lei, protege o animal e o tutor contra a raiva.</li>
+            </ul>
+            <p><strong>Recomendação:</strong> Filhotes iniciam a vacinação a partir de 45 dias, com reforços a cada 3-4
+                semanas até completar o protocolo.</p>
+            <button class="btn primary" onclick="fecharModal()">Fechar</button>
+        </div>
+    </div>
+
+    <div id="modal-gatos" class="modal">
+        <div class="modal-content">
+            <h3>Vacinas para Gatos</h3>
+            <p><strong>Principais vacinas:</strong> Tríplice (V3), Quádrupla (V4), Quíntupla (V5), FeLV e Raiva.</p>
+            <ul>
+                <li><b>V3 / V4 / V5:</b> Protegem contra rinotraqueíte, calicivirose, panleucopenia e clamidiose.</li>
+                <li><b>FeLV:</b> Previne a leucemia felina, importante para gatos que têm contato com outros felinos.
+                </li>
+                <li><b>Raiva:</b> Vacina obrigatória e essencial para a saúde pública.</li>
+            </ul>
+            <p><strong>Recomendação:</strong> Começar a imunização com 60 dias de idade e reforçar anualmente.</p>
+            <button class="btn primary" onclick="fecharModal()">Fechar</button>
+        </div>
+    </div>
+
+    <div id="modal-checkup" class="modal">
+        <div class="modal-content">
+            <h3>Check-up Pré-Vacina</h3>
+            <p>O check-up é fundamental para garantir que o pet esteja saudável antes da vacinação. Inclui:</p>
+            <ul>
+                <li>Avaliação de temperatura, peso e hidratação.</li>
+                <li>Verificação de pulgas, carrapatos e vermes.</li>
+                <li>Análise do histórico de vacinas anteriores.</li>
+            </ul>
+            <p><strong>Benefício:</strong> Assegura a eficácia da vacina e previne reações indesejadas.</p>
+            <button class="btn primary" onclick="fecharModal()">Fechar</button>
+        </div>
+    </div>
+
+    <footer>
+        © <span id="year"></span> PetWorld Vacinas — Cuidado que protege 💙
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        function abrirModal(tipo) {
+            fecharModal(); // fecha qualquer outro aberto
+            document.getElementById(`modal-${tipo}`).style.display = 'flex';
+        }
+
+        function fecharModal() {
+            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+        }
+
+        // Fecha modal ao clicar fora
+        document.querySelectorAll('.modal').forEach(m => {
+            m.addEventListener('click', e => {
+                if (e.target === m) fecharModal();
+            });
+        });
+    </script>
+</body>
+
+</html>

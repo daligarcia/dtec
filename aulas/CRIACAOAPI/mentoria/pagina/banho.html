@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Banho e Tosa — PetWorld</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --blue-1: #7ec8e3;
+            --blue-2: #a8e0ff;
+            --bg: #f0faff;
+            --card: #ffffff;
+            --muted: #66757f;
+            --glass: rgba(255, 255, 255, 0.6);
+            --radius: 14px;
+            --shadow: 0 8px 24px rgba(126, 200, 227, 0.15);
+            font-family: 'Poppins', system-ui, sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+            background: linear-gradient(180deg, var(--bg), #e3f7ff);
+            color: #0f172a;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        .btn {
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 0;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn.primary {
+            background: var(--blue-1);
+            color: #fff;
+        }
+
+        .btn.primary:hover {
+            background: var(--blue-2);
+            color: #3a6e8f;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 28px;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 1px 0 rgba(126, 200, 227, 0.1);
+            z-index: 10;
+            border-bottom: 1px solid rgba(126, 200, 227, 0.15);
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .brand img {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+        }
+
+        .brand h1 {
+            color: #3a6e8f;
+            font-size: 24px;
+        }
+
+        nav {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #3a6e8f;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(168, 224, 255, 0.4);
+        }
+
+        nav a.cta {
+            background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+            color: white;
+        }
+
+        main {
+            padding: 48px 28px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            text-align: center;
+            color: #3a6e8f;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            background: var(--card);
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+        }
+
+        .intro p.tagline {
+            color: var(--muted);
+            line-height: 1.5;
+            font-size: 18px;
+            margin-bottom: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .intro-images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .intro-images img {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            object-fit: cover;
+            transition: none;
+        }
+
+        /* Remove qualquer movimento ao passar o mouse */
+        .intro-images img:hover {
+            transform: none;
+        }
+
+        .service-section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid rgba(126, 200, 227, 0.15);
+            text-align: center;
+        }
+
+        .service-section h3 {
+            color: #3a6e8f;
+            font-size: 26px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--blue-2);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .service-section p {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 16px;
+            margin: 0 auto 20px;
+            max-width: 800px;
+        }
+
+        .price-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .price-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            border: 1px solid rgba(126, 200, 227, 0.15);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .price-card:hover {
+            transform: none;
+        }
+
+        .price-card h4 {
+            color: #3a6e8f;
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+
+        .price-card p {
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .price-card strong {
+            display: block;
+            color: #3a6e8f;
+            font-size: 18px;
+        }
+
+        footer {
+            padding: 20px 28px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            background: rgba(168, 224, 255, 0.2);
+        }
+
+        @media(max-width:900px) {
+            nav {
+                display: none;
+            }
+
+            .brand img {
+                width: 38px;
+                height: 38px;
+            }
+
+            .brand h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="brand">
+            <a href="index.html"><img src="../fotos/logo.png" alt="Logo PetWorld"></a>
+            <h1>PetWorld</h1>
+        </div>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="adocao.html">Adotar</a>
+            <a href="shop.html">Petshop</a>
+            <a class="cta" href="ia.html">IA</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2 class="main-title">Banho e Tosa PetWorld</h2>
+
+        <section class="intro">
+            <p class="tagline">
+                Seu pet merece um cuidado especial! Nossos profissionais utilizam produtos hipoalergênicos, técnicas
+                seguras e muito carinho em cada atendimento.
+            </p>
+
+            <div class="intro-images">
+                <img src="https://cobasi.vteximg.com.br/arquivos/ids/1054302-368-368/Shampoo-Hidratante-Hello-Kitty-Pet-Society-300ml.png?v=638907737756300000"
+                    alt="Banho em cachorro">
+                <img src="https://cobasi.vteximg.com.br/arquivos/ids/1089316-368-368/Antipulgas-Simparic-20mg-para-Caes-5-a-10kg.webp?v=638975066148700000"
+                    alt="Tosa em pet">
+                <img src="https://distribuidoragranda.com/wp-content/uploads/2023/08/esponja-mixta-salva-unas-estrella-4.jpg"
+                    alt="Cachorro limpo e feliz">
+            </div>
+        </section>
+
+        <section class="service-section">
+            <h3>Serviços Disponíveis</h3>
+            <p>Temos pacotes de banho e tosa adaptados ao tamanho, pelagem e necessidade de cada animal. Nosso espaço é
+                climatizado e os equipamentos são esterilizados a cada atendimento.</p>
+
+            <div class="price-list">
+                <div class="price-card">
+                    <h4>Banho Tradicional</h4>
+                    <p>Inclui higienização completa, escovação e perfume suave.</p>
+                    <strong>R$ 40,00</strong>
+                </div>
+
+                <div class="price-card">
+                    <h4>Banho Medicinal</h4>
+                    <p>Com produtos dermatológicos especiais recomendados por veterinários.</p>
+                    <strong>R$ 60,00</strong>
+                </div>
+
+                <div class="price-card">
+                    <h4>Tosa Higiênica</h4>
+                    <p>Ideal para manutenção da higiene e conforto do seu pet.</p>
+                    <strong>R$ 45,00</strong>
+                </div>
+
+                <div class="price-card">
+                    <h4>Tosa Estética</h4>
+                    <p>Modelos personalizados conforme a raça e estilo do animal.</p>
+                    <strong>R$ 70,00</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-section">
+            <h3>Agende o Banho e Tosa do Seu Pet</h3>
+            <p>Entre em contato e reserve um horário! Nossa equipe está pronta para atender com carinho e
+                profissionalismo.</p>
+            <a href="https://wa.me/5511987654321" target="_blank" class="btn primary">Agendar pelo WhatsApp</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 PetWorld — Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+
+</html>

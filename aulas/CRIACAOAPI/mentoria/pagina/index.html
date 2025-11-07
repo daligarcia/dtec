@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PetWorld — Pets</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --blue-1: #7ec8e3;
+            --blue-2: #a8e0ff;
+            --bg: #f0faff;
+            --card: #ffffff;
+            --muted: #66757f;
+            --glass: rgba(255, 255, 255, 0.6);
+            --radius: 14px;
+            --shadow: 0 8px 24px rgba(126, 200, 227, 0.15);
+            font-family: 'Poppins', system-ui, sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+            background: linear-gradient(180deg, var(--bg), #e3f7ff);
+            color: #0f172a;
+            box-sizing: border-box;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            height: 100vh;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 28px;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 1px 0 rgba(126, 200, 227, 0.1);
+            z-index: 10;
+            border-bottom: 1px solid rgba(126, 200, 227, 0.15);
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .brand img {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+        }
+
+        nav {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #3a6e8f;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(168, 224, 255, 0.4);
+        }
+
+        nav a.cta {
+            background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+            color: white;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 32px;
+            padding: 48px 28px;
+            align-items: center;
+        }
+
+        .hero-card {
+            background: var(--card);
+            padding: 28px;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero h2 {
+            font-size: 28px;
+            color: #3a6e8f;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .hero .actions {
+            margin-top: 18px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 0;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn.primary {
+            background: var(--blue-1);
+            color: white;
+        }
+
+        .btn.primary:hover {
+            background: var(--blue-2);
+            color: #3a6e8f;
+        }
+
+        .btn.ghost {
+            background: transparent;
+            border: 2px solid var(--blue-2);
+            color: #3a6e8f;
+        }
+
+        .pets {
+            padding: 18px 28px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .pet {
+            background: var(--card);
+            padding: 14px;
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform 0.2s;
+        }
+
+        .pet:hover {
+            transform: translateY(-4px);
+        }
+
+        .pet img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .pet h3 {
+            font-size: 16px;
+            color: #3a6e8f;
+        }
+
+        .pet p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .pet .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lostfound {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            padding: 0 28px 48px;
+        }
+
+        .card {
+            background: linear-gradient(180deg, var(--glass), rgba(255, 255, 255, 0.85));
+            padding: 18px;
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(126, 200, 227, 0.15);
+        }
+
+        .lostfound h3 {
+            color: #3a6e8f;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            padding: 20px 28px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            background: rgba(168, 224, 255, 0.2);
+        }
+
+        @media(max-width:900px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .lostfound {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+
+            header {
+                padding: 12px;
+            }
+        }
+
+        .badge {
+            background: linear-gradient(90deg, var(--blue-2), var(--blue-1));
+            color: #3a6e8f;
+            padding: 6px 8px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .search {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .search input {
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(126, 200, 227, 0.4);
+            min-width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="brand">
+            <a href="index.html"><img src="../fotos/logo.png" alt="Logo PetWorld"></a>
+        </div>
+
+        <nav>
+            <a href="adocao.html">Adotar</a>
+            <a href="shop.html">Petshop</a>
+            <a href="vacina.html">Vacinas</a>
+            <a class="cta" href="ia.html">IA</a>
+        </nav>
+
+        <div class="search">
+            <input placeholder="Pesquisar por nome, raça ou cidade" />
+            <button class="btn ghost">Buscar</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-card">
+                <span class="badge">Apadrinhe</span>
+                <h2>Bem-vindo ao PetWorld 💙</h2>
+                <p>Temos dezenas de animais esperando por um lar. Doe, adote ou encontre serviços de banho, vacinas e
+                    produtos essenciais — tudo em um só lugar.</p>
+                <div class="actions">
+                    <button class="btn primary">Ver pets para adoção</button>
+                    <button class="btn">Como ajudar</button>
+                </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:12px">
+                <div class="card" style="display:flex;gap:12px;align-items:center">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-nWrVOQFQ3IJ_5IdX0Zp9r0lyR43G9npCfQ&s"
+                        alt="pet" style="width:96px;height:96px;object-fit:cover;border-radius:12px">
+                    <div>
+                        <strong style="color:#3a6e8f">Banho & Tosa</strong>
+                        <div style="color:var(--muted);font-size:13px">Agende online ou compareça sem horário marcado.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="display:flex;gap:12px;align-items:center">
+                    <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=800&auto=format&fit=crop&crop=faces"
+                        alt="vacina" style="width:96px;height:96px;object-fit:cover;border-radius:12px">
+                    <div>
+                        <strong style="color:#3a6e8f">Vacinas</strong>
+                        <div style="color:var(--muted);font-size:13px">Campanhas regulares e atendimento veterinário.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pets" class="pets">
+            <article class="pet">
+                <img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?q=80&w=1200&auto=format&fit=crop&crop=faces"
+                    alt="Beagle">
+                <h3>Rex — Beagle, 2 anos</h3>
+                <p>Macho, vacinado e castrado. Muito carinhoso com crianças.</p>
+                <div class="meta">
+                    <span style="color:var(--muted)">São Paulo - SP</span>
+                    <button class="btn primary">Adotar</button>
+                </div>
+            </article>
+
+            <article class="pet">
+                <img src="https://www.whiskas.com.br/cdn-cgi/image/format=auto,q=90/sites/g/files/fnmzdf2156/files/2024-10/gato-siames.jpg"
+                    alt="Gata">
+                <h3>Luna — SRD, 1 ano</h3>
+                <p>Fêmea, dócil, ótima para apartamento.</p>
+                <div class="meta">
+                    <span style="color:var(--muted)">Campinas - SP</span>
+                    <button class="btn primary">Adotar</button>
+                </div>
+            </article>
+        </section>
+
+        <footer>
+            © <span id="year"></span> PetWorld — Todos os direitos reservados 💙
+        </footer>
+
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+
+</body>
+
+</html>

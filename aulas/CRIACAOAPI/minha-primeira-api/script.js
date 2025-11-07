@@ -14,6 +14,20 @@ const editIdInput = document.getElementById('editId');
 const editNameInput = document.getElementById('editName')
 const editAgeInput = document.getElementById('editAge')
 
+//Seleção de Elementos Modal de Login
+const loginModal = document.getElementById('loginModal')
+const btnLoginModal = document.getElementById('btnLoginModal')
+const btnCancelLogin = document.getElementById('btnCancelLogin')
+const adminLoginForm = document.getElementById('adminLoginForm')
+const adminAuthStatus = document.getElementById('adminAuthStatus')
+
+//Seleção de Elementos MODAL DE REGISTRO
+const registerModal = doocument.getElementById('registerModal')
+const btnRegisterModal = document.getElementById('btnRegisterModal')
+const btnCancelRegister = document.getElementById('btnCancelRegister')
+const adminRegisterForm = document.getElementById('adminRegisterForm')
+const adminRegisterStatus = document.getElementById('adminRegisterStatus')
+
 
 //CRIAÇÃO DE FUNÇÕES
 function fetchAndRenderUsers() {
@@ -73,6 +87,37 @@ function deleteUser(userId) {
     .catch(error => console.error('Erro ao excluir usuário', error))
 }
 
+//FUNÇÃO PARA CRIAR CONTA - Registrar Administrador
+function handleAdminRegister(email, password) {
+    adminRegisterStatus.textContent = "Registrando...";
+    adminRegisterStatus.style.color = "blue";
+
+    fetch('https://localhost:3007/api/register-admin',{
+        method: 'POST',
+        headers: { 'Content-Type: application/json'},
+        body: JSON.stringify({email,password})
+    })
+    .then(response => response.json)
+    .then(data => {
+        if(data.mensagem && data.mensagem.includes('sucesso')) {
+            adminRegisterStatus.style.color = "green";
+            adminRegisterStatus.textContent = "Conta criada com sucesso"
+            SetTimeout(() => {
+                registerModal.style.display = 'none'
+                document.getElementById('regUsername').value = ''
+                document.getElementById('regPassword').value = ''
+            }, 2000)
+         }else{
+            adminRegisterStatus.style.color = "Red"
+            adminRegisterStatus.textContent = data.mensagem
+         }
+    })
+    .catch(() => {
+        adminRegisterStatus.style.color = "Red"
+        adminRegisterStatus.textContent = data.mensagem
+    })
+}
+
 function renderUsers(users) {
     userCardsContainer.innerHTML = "";
 
@@ -125,7 +170,7 @@ addUserForm.addEventListener('submit', (e) => {
     e.preventDefault();//Impede que o submit recarregue a página
 
     const newUserName = document.getElementById('addName').value
-    const newUserAge = parseInt(document.getElementById('addAge').value);
+    const newUserAge = document.getElementById('addAge').value;
 
     addUser({nome: newUserName, idade: newUserAge})
 })

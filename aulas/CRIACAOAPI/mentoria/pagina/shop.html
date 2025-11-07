@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PetWorld — Pets</title>
+    <style>
+        /* ==== CSS BASE ==== */
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100vh;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            font-family: 'Poppins', system-ui, sans-serif;
+            margin: 0;
+            background: linear-gradient(180deg, #f0faff, #e3f7ff);
+            color: #0f172a;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 28px;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 1px 0 rgba(126, 200, 227, 0.1);
+            z-index: 10;
+            border-bottom: 1px solid rgba(126, 200, 227, 0.15);
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .brand img {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+        }
+
+        nav {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #3a6e8f;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(168, 224, 255, 0.4);
+        }
+
+        nav a.cta {
+            background: linear-gradient(90deg, #7ec8e3, #a8e0ff);
+            color: white;
+        }
+
+        .hero {
+            position: relative;
+            padding: 48px 28px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 18px;
+            background: var(--card);
+        }
+
+        .hero-wrapper {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .hero-card {
+            min-width: 100%;
+            background: #ffffff;
+            padding: 28px;
+            border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(126, 200, 227, 0.15);
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .hero-card h2 {
+            font-size: 28px;
+            color: #3a6e8f;
+            margin-bottom: 8px;
+        }
+
+        .hero-card p {
+            color: #66757f;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .hero-card .btn {
+            margin-top: 10px;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .carousel-btn.left {
+            left: 10px;
+        }
+
+        .carousel-btn.right {
+            right: 10px;
+        }
+
+        .pets {
+            padding: 18px 28px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .pet {
+            background: #ffffff;
+            padding: 14px;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(126, 200, 227, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform 0.2s;
+        }
+
+        .pet:hover {
+            transform: translateY(-4px);
+        }
+
+        .pet img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .pet h3 {
+            font-size: 16px;
+            color: #3a6e8f;
+        }
+
+        .pet p {
+            color: #66757f;
+            font-size: 14px;
+        }
+
+        .pet .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn.primary {
+            background: #7ec8e3;
+            color: white;
+            border: 0;
+            border-radius: 12px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .btn.primary:hover {
+            background: #a8e0ff;
+            color: #3a6e8f;
+        }
+
+        footer {
+            padding: 20px 28px;
+            text-align: center;
+            color: #66757f;
+            font-size: 14px;
+            background: rgba(168, 224, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="brand"> <a href="index.html"><img src="../fotos/logo.png" alt="Logo PetWorld"></a>
+        </div>
+        <nav>
+            <a href="adocao.html">Adotar</a>
+            <a href="shop.html">Petshop</a>
+            <a href="vacina.html">Vacinas</a>
+            <a class="cta" href="ia.html">IA</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <button class="carousel-btn left">&#10094;</button>
+            <div class="hero-wrapper">
+                <div class="hero-card">
+                    <h2>Bem-vindo ao PetWorld 💙</h2>
+                    <p>Temos dezenas de animais esperando por um lar. Doe, adote ou encontre serviços de banho, vacinas
+                        e produtos essenciais.</p>
+                    <a href="adocao.html"></a><button class="btn primary">Ver pets para adoção</button></a>
+                </div>
+                <div class="hero-card">
+                    <h2>Vacinas em dia 💉</h2>
+                    <p>Agende vacinação e atendimento veterinário com profissionais qualificados.</p>
+                    <a href="vacina.html"></a><button class="btn primary">Agendar agora</button></a>
+                </div>
+            </div>
+            <button class="carousel-btn right">&#10095;</button>
+        </section>
+
+        <section id="pets" class="pets">
+            <!-- Pets carregados dinamicamente da API -->
+        </section>
+    </main>
+
+    <footer>
+        © <span id="year"></span> PetWorld — Todos os direitos reservados 💙
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // CARROSSEL HERO
+        const wrapper = document.querySelector('.hero-wrapper');
+        const leftBtn = document.querySelector('.carousel-btn.left');
+        const rightBtn = document.querySelector('.carousel-btn.right');
+        let index = 0;
+
+        leftBtn.addEventListener('click', () => {
+            if (index > 0) index--;
+            updateCarousel();
+        });
+        rightBtn.addEventListener('click', () => {
+            if (index < wrapper.children.length - 1) index++;
+            updateCarousel();
+        });
+
+        function updateCarousel() {
+            const width = wrapper.children[0].offsetWidth + 20; // card width + margin
+            wrapper.style.transform = `translateX(-${index * width}px)`;
+        }
+
+        // CARREGAR PRODUTOS DINÂMICOS
+        async function carregarProdutos() {
+            try {
+                const res = await fetch('http://localhost:3000/produtos');
+                const produtos = await res.json();
+
+                const container = document.getElementById('pets');
+                container.innerHTML = '';
+
+                if (produtos.length === 0) {
+                    container.innerHTML = '<p style="grid-column:1/-1; text-align:center;">Nenhum produto disponível</p>';
+                    return;
+                }
+
+                produtos.forEach(produto => {
+                    const div = document.createElement('article');
+                    div.classList.add('pet');
+                    div.innerHTML = `
+                <img src="${produto.imagemUrl}" alt="${produto.nome}" />
+                <h3>${produto.nome}</h3>
+                <p>${produto.descricao}</p>
+                <div class="meta">
+                    <span>R$${produto.preco.toFixed(2)}</span>
+                    <button class="btn primary">Comprar</button>
+                </div>
+            `;
+                    container.appendChild(div);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar produtos:', error);
+            }
+        }
+        carregarProdutos();
+    </script>
+
+</body>
+
+</html>

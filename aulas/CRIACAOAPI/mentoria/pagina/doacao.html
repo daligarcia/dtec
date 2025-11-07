@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PetWorld</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --blue-1: #7ec8e3;
+            --blue-2: #a8e0ff;
+            --bg: #f0faff;
+            --card: #ffffff;
+            --muted: #66757f;
+            --glass: rgba(255, 255, 255, 0.6);
+            --radius: 14px;
+            --shadow: 0 8px 24px rgba(126, 200, 227, 0.15);
+            font-family: 'Poppins', system-ui, sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+            background: linear-gradient(180deg, var(--bg), #e3f7ff);
+            color: #0f172a;
+                        overflow-x: hidden;
+            box-sizing: border-box;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        /* --- Botão Estilo Base (Adicionado) --- */
+        .btn {
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 0;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn.primary {
+            background: var(--blue-1);
+            color: #fff;
+        }
+        .btn.primary:hover {
+            background: var(--blue-2);
+            color: #3a6e8f;
+        }
+        /* -------------------------------------- */
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 28px;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 1px 0 rgba(126, 200, 227, 0.1);
+            z-index: 10;
+            border-bottom: 1px solid rgba(126, 200, 227, 0.15);
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .brand img {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+        }
+
+        .brand h1 {
+            color: #3a6e8f;
+            font-size: 24px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #3a6e8f;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(168, 224, 255, 0.4);
+        }
+
+        nav a.cta {
+            background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+            color: white;
+        }
+
+        .search {
+            display: none;
+        }
+        
+        main {
+            padding: 48px 28px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            text-align: center;
+            color: #3a6e8f;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            background: var(--card);
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+        }
+
+        .intro p.tagline {
+            color: var(--muted);
+            line-height: 1.5;
+            font-size: 18px;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .intro-images {
+            display: flex; 
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .intro-images img {
+            width: 100%;
+            max-width: 300px;
+            height: 200px; 
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            object-fit: cover;
+            flex-grow: 1;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .intro-images img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Seção de Serviços/Produtos */
+        .service-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: var(--glass);
+            border-radius: var(--radius);
+            border: 1px solid rgba(126, 200, 227, 0.15);
+            text-align: left;
+        }
+
+        .service-section .service-content {
+             margin-bottom: 15px; 
+        }
+
+        .service-section h3 {
+            color: #3a6e8f;
+            font-size: 24px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--blue-2);
+            padding-bottom: 5px;
+        }
+
+        .service-section p {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Seção de Doações */
+        .doacoes {
+            text-align: center;
+        }
+
+        .doacoes h2 {
+            font-size: 28px;
+            color: #3a6e8f;
+            margin-bottom: 12px;
+        }
+
+        .doacoes > p {
+            color: var(--muted);
+            line-height: 1.5;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .formas-ajuda {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .ajuda {
+            background: linear-gradient(180deg, var(--glass), rgba(255, 255, 255, 0.85));
+            padding: 24px;
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(126, 200, 227, 0.15);
+            text-align: left;
+            transition: transform 0.3s;
+        }
+
+        .ajuda:hover {
+            transform: translateY(-4px);
+        }
+
+        .ajuda h3 {
+            color: #3a6e8f;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .ajuda p {
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .ajuda strong {
+            color: #3a6e8f;
+            font-weight: 600;
+        }
+
+        .obrigado {
+            margin-top: 40px;
+            font-weight: 700;
+            color: var(--blue-1);
+            font-size: 18px;
+        }
+        
+        footer {
+            padding: 20px 28px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            background: rgba(168, 224, 255, 0.2);
+        }
+        
+        @media(max-width:900px) {
+            nav {
+                display: none;
+            }
+
+            header {
+                padding: 12px;
+            }
+
+            .brand img {
+                width: 38px;
+                height: 38px;
+            }
+
+            .brand h1 {
+                font-size: 20px;
+            }
+
+            .intro p.tagline {
+                font-size: 16px;
+            }
+
+            .formas-ajuda {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 768px) {
+            .intro-images {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .intro-images img {
+                width: 90%;
+                max-width: 350px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="brand">
+            <a href="index.html"><img src="../fotos/logo.png" alt="Logo PetWorld"></a>
+
+            <h1>PetWorld</h1>
+        </div>
+
+        <nav>
+            <a href="adocao.html">Adotar</a>
+            <a href="shop.html">Petshop</a>
+            <a class="cta" href="ia.html">IA</a>
+        </nav>
+        </header>
+
+    <main>
+        <h2 class="main-title">Seu Pet Center Completo: Cuidado, Amor e Produtos!</h2>
+
+        <section class="intro">
+            <p class="tagline">Conheça nossos serviços, produtos e dicas para cuidar do seu melhor amigo.</p>
+            
+            <div class="intro-images">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.KOnqTsYD8ejjAHpupTjKswHaEo?pid=Api&P=0&h=180" alt="Filhote fofo 1">
+                <img src="https://tse4.mm.bing.net/th/id/OIP.m3Vc3zmrN0lvV-Zqyws5CQHaEJ?pid=Api&P=0&h=180" alt="Filhote fofo 2">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.y5dSViyEAsCf_SloZepiqgHaEJ?pid=Api&P=0&h=180" alt="Filhote fofo 3">
+            </div>
+        </section>
+
+        <section class="service-section">
+            <h3>Nossos Serviços Incríveis</h3>
+            <div class="service-content">
+                <p>Na PetWorld, seu amigo peludo encontra tudo o que precisa! Oferecemos consultas veterinárias, banho e tosa, creche e adestramento, sempre com muito carinho e profissionalismo. Cuidamos da saúde e bem-estar do seu pet como se fosse nosso.</p>
+            </div>
+            <a href="treinamento.html" class="btn primary">Ver Nossos Serviços de Treinamento</a>
+        </section>
+
+        <section class="service-section">
+            <h3>Produtos Selecionados e Dicas Essenciais</h3>
+            <p>Descubra nossa linha completa de produtos: rações premium, brinquedos divertidos, acessórios estilosos e medicamentos. Além disso, confira nossas dicas exclusivas sobre nutrição, comportamento e cuidados diários para garantir uma vida longa e feliz ao seu companheiro!</p>
+        </section>
+
+
+        <section class="doacoes">
+            <h2>Ajude o Abrigo</h2>
+            <p>Você pode apoiar o PetWorld e os animais acolhidos de diversas formas. Sua ajuda é muito importante!
+            </p>
+
+            <div class="formas-ajuda">
+                <div class="ajuda">
+                    <h3>Doação Financeira</h3>
+                    <p>Contribua com qualquer valor via Pix ou transferência bancária. Toda ajuda é bem-vinda!</p>
+                    <p><strong>Pix:</strong> doacoes@petsworld.org</p>
+                    <p><strong>Banco:</strong> 000 - Conta 12345-6</p>
+                </div>
+
+                <div class="ajuda">
+                    <h3>Doação de Produtos</h3>
+                    <p>Você também pode doar ração, cobertores, medicamentos ou produtos de higiene.</p>
+                    <p><strong>Ponto de entrega:</strong> Rua dos Animais, 123 - São Paulo/SP</p>
+                    <p><strong>Contato:</strong> (11) 98765-4321</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p class="obrigado">&copy; 2025 PetWorld — Todos os direitos reservados.</p>
+    </footer>
+
+</body>

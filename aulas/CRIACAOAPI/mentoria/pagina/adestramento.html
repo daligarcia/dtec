@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Treinamento de Cães — Adestramento</title>
+  <style>
+    /* Reset básico */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue-1: #7ec8e3;
+      --blue-2: #a8e0ff;
+      --bg: #f0faff;
+      --card: #ffffff;
+      --muted: #66757f;
+      --glass: rgba(255, 255, 255, 0.6);
+      --radius: 14px;
+      --shadow: 0 8px 24px rgba(126, 200, 227, 0.15);
+      font-family: 'Poppins', system-ui, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      background: linear-gradient(180deg, var(--bg), #e3f7ff);
+      color: #0f172a;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 28px;
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 1px 4px rgba(126, 200, 227, 0.2);
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+    }
+
+    nav a {
+      color: #3a6e8f;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(168, 224, 255, 0.4);
+    }
+
+    nav a.cta {
+      background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+      color: #fff;
+    }
+
+    /* Search */
+    .search {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .search input {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(126, 200, 227, 0.4);
+      min-width: 200px;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 32px;
+      padding: 48px 28px;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-card {
+      background: var(--card);
+      padding: 28px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero h2 {
+      font-size: 28px;
+      color: #3a6e8f;
+      margin: 12px 0;
+    }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .hero .actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Botões */
+    .btn {
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn.primary {
+      background: var(--blue-1);
+      color: #fff;
+    }
+
+    .btn.primary:hover {
+      background: var(--blue-2);
+      color: #3a6e8f;
+    }
+
+    .btn.ghost {
+      background: transparent;
+      border: 2px solid var(--blue-2);
+      color: #3a6e8f;
+    }
+
+    /* Hero Cards */
+    .hero .card-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .hero .card {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: linear-gradient(180deg, var(--glass), rgba(255, 255, 255, 0.85));
+      padding: 18px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(126, 200, 227, 0.15);
+    }
+
+    .hero .card img {
+      width: 96px;
+      height: 96px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .hero .card strong {
+      color: #3a6e8f;
+      font-size: 16px;
+    }
+
+    .hero .card div {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Serviços */
+    .servicos {
+      padding: 32px 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .servico {
+      background: var(--card);
+      padding: 14px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .servico:hover {
+      transform: translateY(-6px);
+    }
+
+    .servico img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .servico h3 {
+      font-size: 16px;
+      color: #3a6e8f;
+    }
+
+    .servico p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .servico .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Sobre */
+    .sobre {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      padding: 32px 28px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .sobre .card {
+      background: linear-gradient(180deg, var(--glass), rgba(255, 255, 255, 0.85));
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(126, 200, 227, 0.15);
+    }
+
+    .sobre h3 {
+      color: #3a6e8f;
+      margin-bottom: 8px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 20px 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      background: rgba(168, 224, 255, 0.2);
+    }
+
+    /* Badge */
+    .badge {
+      background: linear-gradient(90deg, var(--blue-2), var(--blue-1));
+      color: #3a6e8f;
+      padding: 6px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    /* Responsivo */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .sobre {
+        grid-template-columns: 1fr;
+      }
+      nav {
+        display: none;
+      }
+      header {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">
+      <a href="index.html"><img src="../fotos/logo.png" alt="Logo PetWorld"></a>
+      <strong>PetWorld</strong>
+    </div>
+
+    <nav>
+      <a href="shop.html">Serviços</a>
+      <a href="index.html">Sobre</a>
+      <a class="cta" href="ia.html">IA</a>
+    </nav>
+
+    <div class="search">
+      <input placeholder="Pesquisar por serviço ou raça" />
+      <button class="btn ghost">Buscar</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-card">
+        <span class="badge">Treinamento Profissional</span>
+        <h2>Bem-vindo ao Treinamento de Cães 💙</h2>
+        <p>Especialista em adestramento de cães com amor e dedicação. Oferecemos serviços personalizados para
+          tornar seu pet um companheiro perfeito.</p>
+        <div class="actions">
+          <a href="local.html" class="btn primary">Ver Serviços</a>
+          <a href="vacina.html" class="btn ghost">Agendar Consulta</a>
+        </div>
+      </div>
+
+      <div class="card-wrapper">
+        <div class="card">
+          <img src="https://www.estimacao.com.br/wp-content/uploads/2018/06/treino-cao-e1529416409371.jpg" alt="Cão sendo treinado">
+          <div>
+            <strong>Adestramento Personalizado</strong>
+            <div>Treinamento em casa ou no local, adaptado às necessidades do seu cão.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://tse2.mm.bing.net/th/id/OIP.Gr2xl9uf2JQvlnIPdkAN4wHaFF?pid=Api&P=0&h=180" alt="Cão obediente">
+          <div>
+            <strong>Consultoria Veterinária</strong>
+            <div>Parceria com vets para saúde e comportamento.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="servicos" class="servicos">
+      <article class="servico">
+        <img src="https://clinica.animedclinvet.com.br/imagens/clinica-veterinaria-24-horas.jpg" alt="Adestramento Domiciliar">
+        <h3>Adestramento Domiciliar</h3>
+        <p>Serviços de adestramento em domicílio, com métodos modernos e carinhosos.</p>
+        <div class="meta">
+          <span>Personalizado</span>
+          <button class="btn primary">Saiba Mais</button>
+        </div>
+      </article>
+
+      <article class="servico">
+        <img src="https://www.petstoyland.com/wp-content/uploads/2022/08/teckel6.jpg" alt="Adestramento Geral">
+        <h3>Adestramento</h3>
+        <p>Serviços completos de adestramento, focando em obediência e socialização.</p>
+        <div class="meta">
+          <span>Para Todas Idades</span>
+          <button class="btn primary">Saiba Mais</button>
+        </div>
+      </article>
+
+      <article class="servico">
+        <img src="https://lh6.googleusercontent.com/VAViVE0QG6wpW2yeSzQA7tPOrNFf3hlmUrwr7mogM3oShMFGVVNPRpKFs6Sf23tL_c6tITmB5glV2WSR3O1a4Zxd4zj9o7sb39WLMpaA0n20IG3EK-JkeEvA8-OmWF6GeuLB3qwrUsDbALDzrQm27BZJqIdqTTEHXt-TTsaUKem2jwyQKWehdB8vPJtEdw" alt="Animais Comerciais">
+        <h3>Animais Comerciais</h3>
+        <p>Treinamento de cães para fins comerciais, com diversão e profissionalismo.</p>
+        <div class="meta">
+          <span>Especializado</span>
+          <button class="btn primary">Saiba Mais</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="sobre">
+      <div class="card">
+        <h3>Sobre Nós</h3>
+        <p>Dedicação total aos pets e donos. Transformamos comportamentos com paciência e técnicas comprovadas.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> PetWorld — Todos os direitos reservados 💙
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
